@@ -3,6 +3,7 @@
 /workspace.xml
 /.idea/
 /venv/
+*.log
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml

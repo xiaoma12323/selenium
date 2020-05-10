@@ -11,7 +11,7 @@ chrome_options = webdriver.ChromeOptions()
 mobile_emulation = {"deviceName": "iPhone X"}
 chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
 # 使用headless无界面浏览器模式
-# chrome_options.add_argument('--headless')
+chrome_options.add_argument('--headless')
 # 如果不加这个选项，有时定位会出现问题
 chrome_options.add_argument('--disable-gpu')
 
