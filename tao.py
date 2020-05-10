@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import time
-
 from selenium import webdriver
 from time import strftime, localtime
 
+now_time = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
 chrome_options = webdriver.ChromeOptions()
 # 设置为手机模式
 mobile_emulation = {"deviceName": "iPhone X"}
@@ -17,7 +18,7 @@ chrome_options.add_argument('--disable-gpu')
 
 
 def get_details():
-    print('************************************ refresh ************************************')
+    f_print('************************************ refresh ************************************')
     browser.get('https://h5.m.taobao.com/awp/core/detail.htm?id=577115972182')
     time.sleep(1)
     browser.find_element_by_xpath('//*[@id="sys_list$sys_list_10014"]/div[7]').click()
@@ -51,23 +52,30 @@ def get_details():
                 for m in range(1, ver_len + 1):
                     # browser.find_element_by_xpath(ver_path + 'li[' + str(m) + ']').click()
                     # time.sleep(0.2)
-                    print(strftime('%Y-%m-%d %H:%M:%S  ', localtime())
+                    f_print(strftime('%Y-%m-%d %H:%M:%S  ', localtime())
                           + browser.find_element_by_xpath(
                         '//*[@id="detail"]/div[3]/div[2]/div[2]/div/div/div[1]/div/div[2]/div/p[1]').text
                           + '  ' + browser.find_element_by_xpath(
                         '//*[@id="detail"]/div[3]/div[2]/div[2]/div/div/div[1]/div/div[2]/div/p[3]/span[1]').text)
 
-    print('********************************** refresh end **********************************')
+    f_print('********************************** refresh end **********************************')
+
+
+def f_print(st):
+    file.write(st + '\n')
 
 
 if __name__ == '__main__':
+    # 新建记录文件
+    if not os.path.exists('log'):
+        os.makedirs('log')
+
+    file = open('log/' + now_time + '.txt', 'w', encoding='utf-8')
     # 启动浏览器，获取网页源代码
     browser = webdriver.Chrome(options=chrome_options)
-    s = 60
+
     try:
-        while True:
-            get_details()
-            print('sleep: ' + str(s) + 's')
-            time.sleep(s)
+        get_details()
     finally:
+        file.close()
         browser.quit()
