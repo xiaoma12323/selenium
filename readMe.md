@@ -5,6 +5,7 @@ good：
 https://h5.m.taobao.com/awp/core/detail.htm?id=577115972182
 
 https://blog.csdn.net/u012980075/article/details/95955703
+
 #########百输入框的定位方式##########
 #通过id方式定位
 browser.find_element_by_id("kw").send_keys("selenium")
